@@ -54,13 +54,29 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(document).ready(function () {
+
+    $("#resetChat").on("click", function () {
+        $.ajax({
+            url: '/migration/chat/reset',
+            method: 'POST',
+            success: function () {
+            $(".chat-box").val('');
+            }, 
+            error: function () {
+                console.log('error clearing session')
+            }
+        
+          
+        });
+    });
+
     $("form").on("submit", function (e) {
       e.preventDefault(); // stop regular form submission
 
       const chatMessage = $("#widgetInput").val();
 
       $.ajax({
-        url: "/migration/chat/", // make sure your Flask route matches this
+        url: "/migration/chat/talk", // make sure your Flask route matches this
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify({ user_input: chatMessage }),
@@ -102,6 +118,8 @@
           <label for="widgetInput">Enter your widgets or migration goals:</label><br />
           <textarea id="widgetInput" name="user_input" rows="6" style="width:100%; margin-top:10px;"></textarea><br />
           <button type="submit" style="margin-top: 10px;">Submit</button>
+          <button id="resetChat" style="margin-top: 20px;">Reset Chat</button>
+
         </form>
 
         {% if response %}
