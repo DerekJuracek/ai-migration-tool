@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoShift AI</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    nav {
+      background-color: #1e293b;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .main {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #f1f5f9;
+      padding: 1rem;
+      border-right: 1px solid #ccc;
+    }
+
+    .content {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat-box {
+      width: 100%;
+      max-width: 600px;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("form").on("submit", function (e) {
+      e.preventDefault(); // stop regular form submission
+
+      const chatMessage = $("#widgetInput").val();
+
+      $.ajax({
+        url: "/migration/chat/", // make sure your Flask route matches this
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ user_input: chatMessage }),
+        success: function (response) {
+            console.log(typeof(response))
+            console.log(response)
+            
+          $(".chat-box").append(`
+            <hr />
+            <h3>Migration Strategy:</h3>
+            <p>${response.response}</p>
+          `);
+        },
+        error: function () {
+          alert("Something went wrong.");
+        }
+      });
+    });
+  });
+</script>
+
+</head>
+<body>
+  <nav>GeoShift AI – ArcGIS Migration Assistant (WAB to ExB)</nav>
+
+  <div class="main">
+    <div class="sidebar">
+      <p><strong>Menu</strong></p>
+      <ul>
+        <li>Home</li>
+        <li>Upload Config</li>
+        <li>Request Help</li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <div class="chat-box">
+        <form method="POST">
+          <label for="widgetInput">Enter your widgets or migration goals:</label><br />
+          <textarea id="widgetInput" name="user_input" rows="6" style="width:100%; margin-top:10px;"></textarea><br />
+          <button type="submit" style="margin-top: 10px;">Submit</button>
+        </form>
+
+        {% if response %}
+          <hr />
+          <h3>Migration Strategy:</h3>
+          <p>{{ response }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
