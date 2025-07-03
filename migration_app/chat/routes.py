@@ -11,3 +11,7 @@ def ask_chat():
 def clear_session():
    return Chat.reset()
 
+@chat.route('/upload', methods=['POST'])
+def upload_file():
+    return Chat.upload()
+
