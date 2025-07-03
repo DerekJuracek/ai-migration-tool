@@ -131,7 +131,7 @@
             type: 'POST',
             data: formData,
             processData: false,  // Don't process the data
-            contentType: false,  // Let the browser set this
+            contentType: false,
             success: function (response) {
             console.log('Server response:', response);
             // Display migration plan or result
@@ -149,8 +149,8 @@
       const chatMessage = $("#widgetInput").val();
       
       buildChat(chatMessage)
-        $("#widgetInput").val('');
-      $("#chatBox").css("height", "500px")
+       $("#widgetInput").val('');
+       $("#chatBox").css("height", "500px")
 
       $.ajax({
         url: "/migration/chat/talk", // make sure your Flask route matches this
@@ -194,7 +194,7 @@
           <textarea id="widgetInput" placeholder="Tell me about your WAB Migration..." name="user_input" rows="6" style="width:100%; margin-top:10px;" autofocus></textarea><br />
   
           <input type="file" class="custom-file-input" id="inputFile">
-          <button class="btn btn-sm btn-primary" id ="uploadBtn"  >Upload</button>
+          <button class="btn btn-sm btn-primary" type="button" id ="uploadBtn">Upload</button>
           <button class="btn btn-sm btn-primary" type="submit" >Submit</button>
           <button class="btn btn-sm btn-primary" id="resetChat" >Reset Chat</button>
         </form>

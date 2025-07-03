@@ -1,0 +1,286 @@
+
+{
+  "3D Toolbox": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.1 (Slice tool added in 11.2)",
+    "supported_in_dev_edition": [
+      "1.9",
+      "1.11"
+    ],
+    "notes": "Supports Daylight, Line of sight, Shadow cast, Weather, Slice (3D only)"
+  },
+  "Accordion": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.5",
+    "supported_in_dev_edition": [
+      "1.16"
+    ]
+  },
+  "Add Line Event": {
+    "supported_in_online": false,
+    "supported_in_enterprise": "11.3",
+    "supported_in_dev_edition": null,
+    "notes": "ArcGIS Enterprise only"
+  },
+  "Add Point Event": {
+    "supported_in_online": false,
+    "supported_in_enterprise": "11.3",
+    "supported_in_dev_edition": null,
+    "notes": "ArcGIS Enterprise only"
+  },
+  "Branch Version Management": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.9.1",
+    "supported_in_dev_edition": [
+      "1.4"
+    ]
+  },
+  "Building Explorer": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.4",
+    "supported_in_dev_edition": [
+      "1.15"
+    ]
+  },
+  "Button": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Card": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.9",
+    "supported_in_dev_edition": [
+      "1.1"
+    ]
+  },
+  "Classic Oriented Imagery": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.0",
+    "supported_in_dev_edition": [
+      "1.6"
+    ]
+  },
+  "Column": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Display Order": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "12.0",
+    "supported_in_dev_edition": [
+      "1.18"
+    ]
+  },
+  "Divider": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.9",
+    "supported_in_dev_edition": [
+      "1.1"
+    ]
+  },
+  "Document Explorer": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "12.0",
+    "supported_in_dev_edition": [
+      "1.18"
+    ]
+  },
+  "Document Viewer": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "12.0",
+    "supported_in_dev_edition": [
+      "1.18"
+    ]
+  },
+  "Dynamic Segmentation": {
+    "supported_in_online": false,
+    "supported_in_enterprise": "11.4",
+    "supported_in_dev_edition": null,
+    "notes": "ArcGIS Enterprise only"
+  },
+  "Elevation Profile": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.0",
+    "supported_in_dev_edition": [
+      "1.7"
+    ]
+  },
+  "Embed": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Feature Info": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Fixed Panel": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Floor Filter": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.0",
+    "supported_in_dev_edition": [
+      "1.8"
+    ]
+  },
+  "Flow Row": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.5",
+    "supported_in_dev_edition": [
+      "1.17"
+    ]
+  },
+  "Fly Controller": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ],
+    "notes": "3D data sources only"
+  },
+  "Grid": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.1",
+    "supported_in_dev_edition": [
+      "1.10"
+    ]
+  },
+  "Image": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Link Explorer": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "12.0",
+    "supported_in_dev_edition": [
+      "1.18"
+    ]
+  },
+  "List": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "LRS Identify": {
+    "supported_in_online": false,
+    "supported_in_enterprise": "11.3",
+    "supported_in_dev_edition": null,
+    "notes": "ArcGIS Enterprise only"
+  },
+  "Map": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Menu": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Merge Events": {
+    "supported_in_online": false,
+    "supported_in_enterprise": "11.3",
+    "supported_in_dev_edition": null,
+    "notes": "ArcGIS Enterprise only"
+  },
+  "Oriented Imagery Viewer": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.5",
+    "supported_in_dev_edition": [
+      "1.17"
+    ]
+  },
+  "Placeholder": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Processing Templates": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "11.5",
+    "supported_in_dev_edition": [
+      "1.17"
+    ]
+  },
+  "Row": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Search by Route": {
+    "supported_in_online": false,
+    "supported_in_enterprise": "11.3",
+    "supported_in_dev_edition": null,
+    "notes": "ArcGIS Enterprise only"
+  },
+  "Section": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Sidebar": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Split Event": {
+    "supported_in_online": false,
+    "supported_in_enterprise": "11.3",
+    "supported_in_dev_edition": null,
+    "notes": "ArcGIS Enterprise only"
+  },
+  "Survey": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Text": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  },
+  "Views Navigation": {
+    "supported_in_online": true,
+    "supported_in_enterprise": "10.8.1",
+    "supported_in_dev_edition": [
+      "1.0"
+    ]
+  }
+}
