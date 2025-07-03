@@ -12,26 +12,41 @@ class Chat:
         })
     
     @staticmethod
+    def check_widgets_optional(data):
+        optional_widget_list = []
+        widgets = data.get("widgets")
+        for widget in widgets:
+            if widget.get("uri"):
+
+                optional_widget = widget["uri"].split("/")[1]
+                optional_widget_list.append(optional_widget)
+                print(widget)
+        print(type(data))
+        print(widgets)
+        print(optional_widget_list)
+        # Done
+        
+    
+    @staticmethod
     def check_widgets_on_screen(data):
         # lets create an easy list?
         # just need names for now
         # [{widget: "Scale"}]
         widgetList = []
         widgets = data.get("widgets")
-        print(type(widgets))
+        #print(type(widgets))
         for widget in widgets:
-            print(widget)
             # lets get uri of each widget dict
             # output i.e widgets/Scalebar/Widget
             #print(widget.get("uri"))
       
             if widget.get("uri"):
                 name = widget.get("uri")
-                print(type(name))
+                #print(type(name))
                 widget_name = name.split("/")[1]
-                print(widget_name)
+                #print(widget_name)
                 widgetList.append(widget_name)
-        print(widgetList)
+        #print(widgetList)
         #print(type(data))
 
     
@@ -44,9 +59,12 @@ class Chat:
         #print(data)
         #print(type(data))
         for key, value in data.items():
+            #print(key)
             if "widgetOnScreen" == key:
                 #print(data["widgetOnScreen"])
                 Chat.check_widgets_on_screen(data["widgetOnScreen"])
+            if "widgetPool" == key:
+                Chat.check_widgets_optional(data["widgetPool"])
             #print(key)
         return jsonify({
             'message': 'file uploaded'
