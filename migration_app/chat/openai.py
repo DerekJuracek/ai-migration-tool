@@ -150,10 +150,7 @@ class Chat:
 
     @staticmethod
     def upload(file):
-   
-        #file = request.files['file']
         data = json.load(file)
-        print(data)
         app_package = {}
         try :
             for key, value in data.items():
@@ -165,9 +162,7 @@ class Chat:
                     app_package["theme"] = Chat.get_theme(data["theme"])
                 if "map" == key:
                     app_package["map"] = Chat.get_map(data["map"])
-            print('okay before talk to chat')
-            chatoutput = Chat.talk_to_chat(app_package)
-            print(chatoutput)
+            Chat.talk_to_chat(app_package)
             # need to return output from talk_to_chat
             return {'message': app_package}
             
@@ -179,17 +174,11 @@ class Chat:
         
         initial_prompt = """"""
         input = ""
-        #if request.is_json:
-            #data = request.get_json()
+      
         input = request.form.get('user_input')
         file = request.files.get('file')
-
-        print(input)
-        print(type(input))
-        #print(file)
         uploaded_file_dict = Chat.upload(file)
-        print(uploaded_file_dict)
-        #print(print(Chat.chat))
+       
         if len(Chat.chat) == 0:
         #if "chat_history" not in session:
             #session["chat_history"] = []
@@ -207,9 +196,9 @@ class Chat:
             Only give a migration strategy once you have all key info.
             """
         if len(uploaded_file_dict) > 0:
-            initial_prompt += f"""heres there config.json file I compiled for you
+            initial_prompt += f"""heres there uploaded config.json file from the user, please just create their migration plan.
             {str(uploaded_file_dict)}
-            now please compare this with {Chat.wab_exb_widget_map} and see how their widgets compare
+            please compare this with {Chat.wab_exb_widget_map} and see how their widgets compare
             to experience builder. If they aren't there then they are custom and we need to recommend a rewrite."""
 
             print(initial_prompt)
@@ -218,14 +207,11 @@ class Chat:
         if len(input) > 0:
             Chat.update_chat("user", input)
         
-        print(Chat.chat)
         try: 
       
             client = OpenAI(
             api_key=app.config["OPENAI_KEY"]
             )
-            #print(client)
-
             completion = client.chat.completions.create(
             model="gpt-4o-mini",
             store=True,
@@ -234,8 +220,6 @@ class Chat:
 
             response = completion.choices[0].message.content
             Chat.update_chat('assistant', response)
-           
-
            
             return jsonify({
                     "message": response
