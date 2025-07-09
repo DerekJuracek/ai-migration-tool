@@ -83,12 +83,16 @@
     })
 
     function renderMarkdown(text) {
+        console.log(text)
         const dirty = md.render(text)
+      
 
         return DOMPurify.sanitize(dirty)
     }
 
     function buildResponse(response) {
+      console.log(response)
+      console.log(typeof response)
        let chatResponse = renderMarkdown(response)
        $(".chat-message.bot").last().html(chatResponse)
     }
@@ -143,20 +147,26 @@
         });
 
 
-    $("form").on("submit", function (e) {
+    $("#ChatForm").on("submit", function (e) {
       e.preventDefault(); // stop regular form submission
-
+     console.log(e)
+     console.log(this)
       const chatMessage = $("#widgetInput").val();
+      const form = document.getElementById('ChatForm')
+       const formData = new FormData(form);
+       console.log(formData)
       
       buildChat(chatMessage)
-       $("#widgetInput").val('');
-       $("#chatBox").css("height", "500px")
+       //$("#widgetInput").val('');
+      // $("#chatBox").css("height", "500px")
 
       $.ajax({
         url: "/migration/chat/talk", // make sure your Flask route matches this
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({ user_input: chatMessage }),
+        type: "POST",
+        contentType: false,
+        processData: false,
+        data: formData,
+        //data: JSON.stringify({ user_input: chatMessage }),
         success: function (response) {
             buildResponse(response.message)
         },
@@ -189,12 +199,14 @@
         <div class="messages" style="height: 300px;">
             <!-- dynamically generated messages -->
         </div>
-        <form method="POST">
+        <form method="POST" id="ChatForm" enctype="multipart/form-data">
           <label for="widgetInput"></label><br />
-          <textarea id="widgetInput" placeholder="Tell me about your WAB Migration..." name="user_input" rows="6" style="width:100%; margin-top:10px;" autofocus></textarea><br />
+          <textarea id="widgetInput" placeholder="Tell me about your WAB Migration or upload the config.json from your app..." name="user_input" rows="6" style="width:100%; margin-top:10px;" autofocus></textarea><br />
   
-          <input type="file" class="custom-file-input" id="inputFile">
-          <button class="btn btn-sm btn-primary" type="button" id ="uploadBtn">Upload</button>
+        
+            <input type="file" name="file" accept=".json">
+          <!-- <input type="file" class="custom-file-input" id="inputFile">
+              <button class="btn btn-sm btn-primary" type="button" id ="uploadBtn">Upload</button> -->
           <button class="btn btn-sm btn-primary" type="submit" >Submit</button>
           <button class="btn btn-sm btn-primary" id="resetChat" >Reset Chat</button>
         </form>

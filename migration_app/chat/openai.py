@@ -137,25 +137,7 @@ class Chat:
         # done ✅
 
     
-    @staticmethod
-    def upload():
-        file = request.files['file']
-        data = json.load(file)
-        app_package = {}
 
-        for key, value in data.items():
-            if "widgetOnScreen" == key:
-                app_package["widgets"] = Chat.check_widgets_on_screen(data["widgetOnScreen"])
-            if "widgetPool" == key:
-                app_package["other_widget"] = Chat.check_widgets_optional(data["widgetPool"])
-            if "theme" == key:
-                app_package["theme"] = Chat.get_theme(data["theme"])
-            if "map" == key:
-                app_package["map"] = Chat.get_map(data["map"])
-        #Chat.talk_to_chat()
-        return jsonify({
-            'message': app_package
-        })
 
     @staticmethod
     def update_chat(role, message):
@@ -167,12 +149,48 @@ class Chat:
         #session["chat_history"].append({ role: message })
 
     @staticmethod
-    def talk_to_chat():
-        data = request.get_json()
-        input = data.get('user_input')
-        initial_prompt = """"""
+    def upload(file):
+   
+        #file = request.files['file']
+        data = json.load(file)
+        print(data)
+        app_package = {}
+        try :
+            for key, value in data.items():
+                if "widgetOnScreen" == key:
+                    app_package["widgets"] = Chat.check_widgets_on_screen(data["widgetOnScreen"])
+                if "widgetPool" == key:
+                    app_package["other_widget"] = Chat.check_widgets_optional(data["widgetPool"])
+                if "theme" == key:
+                    app_package["theme"] = Chat.get_theme(data["theme"])
+                if "map" == key:
+                    app_package["map"] = Chat.get_map(data["map"])
+            print('okay before talk to chat')
+            chatoutput = Chat.talk_to_chat(app_package)
+            print(chatoutput)
+            # need to return output from talk_to_chat
+            return {'message': app_package}
+            
+        except Exception:
+            return {'message': app_package}
 
-        if not Chat.chat:
+    @staticmethod
+    def talk_to_chat():
+        
+        initial_prompt = """"""
+        input = ""
+        #if request.is_json:
+            #data = request.get_json()
+        input = request.form.get('user_input')
+        file = request.files.get('file')
+
+        print(input)
+        print(type(input))
+        #print(file)
+        uploaded_file_dict = Chat.upload(file)
+        print(uploaded_file_dict)
+        #print(print(Chat.chat))
+        if len(Chat.chat) == 0:
         #if "chat_history" not in session:
             #session["chat_history"] = []
             initial_prompt = """You are a GIS migration assistant named GeoShift AI, you can respond with your name every now and again. 
@@ -185,23 +203,24 @@ class Chat:
             3. Do the widgets have an adjacent widget they can use in experience builder for the web app builder widget.
             It is recommended that they upload a config.json so that we can read it and compare with ESRI's latest docs to create an accurate
             migration plan.
+            if a user uploads a config.json and it matches of what is expected in web app builder than create their migration plan. Ask any follow up questions if needed.
             Only give a migration strategy once you have all key info.
             """
-        if not Chat.app_package:
-            initial_prompt += """heres there config.json file I compiled for you
-            {Chat.app_package}
+        if len(uploaded_file_dict) > 0:
+            initial_prompt += f"""heres there config.json file I compiled for you
+            {str(uploaded_file_dict)}
             now please compare this with {Chat.wab_exb_widget_map} and see how their widgets compare
             to experience builder. If they aren't there then they are custom and we need to recommend a rewrite."""
 
-            
+            print(initial_prompt)
             Chat.update_chat("system", initial_prompt)
             
-
-        Chat.update_chat("user", input)
+        if len(input) > 0:
+            Chat.update_chat("user", input)
         
-     
+        print(Chat.chat)
         try: 
-            #print(app.config)
+      
             client = OpenAI(
             api_key=app.config["OPENAI_KEY"]
             )
@@ -215,14 +234,19 @@ class Chat:
 
             response = completion.choices[0].message.content
             Chat.update_chat('assistant', response)
-        
+           
+
+           
             return jsonify({
-                "message": response
-            })
+                    "message": response
+                })
         except Exception:
             return jsonify({
                 "message": "Something went wrong. Please try again later."
             }), 500
+        
+
+
 
         
 
