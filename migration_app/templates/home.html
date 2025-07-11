@@ -67,6 +67,11 @@
         padding-bottom: 15px;
     }
 
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+
 
   </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
@@ -206,9 +211,14 @@
         <form method="POST" id="ChatForm" enctype="multipart/form-data">
           <label for="widgetInput"></label><br />
           <textarea id="widgetInput" placeholder="Tell me about your WAB Migration or upload the config.json from your app for the most accurate migration plan..." name="user_input" rows="6" style="width:100%; margin-top:10px; resize: none;" draggable="false" autofocus></textarea><br />
-          <input type="file" name="file" accept=".json">
-          <button class="btn btn-sm btn-primary" type="submit" >Submit</button>
-          <button class="btn btn-sm btn-primary" id="resetChat" >Reset Chat</button>
+
+          <div class="btn-container">
+          <div class="btn-group">
+            <input type="file" name="file" accept=".json">
+            <button class="btn btn-sm btn-primary align-self-end" type="submit" >Submit</button>
+            <button class="btn btn-sm btn-primary align-self-end" id="resetChat" >Reset Chat</button>
+          </div>
+        </div>
         </form>
       </div>
     </div>
