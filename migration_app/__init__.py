@@ -1,6 +1,11 @@
+from flask import Flask
+from dotenv import load_dotenv
+import os
 from flask import Flask, Blueprint, render_template, session
 from migration_app.home import home_bp
 from migration_app.chat import chat_bp
+
+load_dotenv() 
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True )
@@ -8,8 +13,8 @@ def create_app():
     migration_app.register_blueprint(home_bp)
     migration_app.register_blueprint(chat_bp)
     app.register_blueprint(migration_app)
-    app.config.from_pyfile('config.cfg')
-
+    #app.config.from_pyfile('config.cfg')
+    app.config['OPENAI_KEY'] = os.environ.get('OPEN_AI_KEY')
     app.secret_key = 'top-secret'
 
     #if "chat_history" not in session:
