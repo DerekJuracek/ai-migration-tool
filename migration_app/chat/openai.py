@@ -167,23 +167,24 @@ class Chat:
 
     @staticmethod
     def talk_to_chat():
-        
         initial_prompt = """"""
         input = ""
         input = request.form.get('user_input')
         file = request.files.get('file')
-        data = json.load(file)
+        data = {}
+
+        if file and file != "":
+             data = json.load(file)
+      
+        # data = json.load(file)
         uploaded_file_dict = {}
 
-        file.seek(0)  # 🔁 Reset file pointer to beginning
+        file.seek(0)  
 
         if data:
            uploaded_file_dict = Chat.upload(data)
            
-       
         if len(Chat.chat) == 0:
-        #if "chat_history" not in session:
-            #session["chat_history"] = []
             initial_prompt = """You are a GIS migration assistant named GeoShift AI, you can respond with your name every now and again. 
             Users are inquiring about what it would take to convert from there current
             Web App Builder in ArcGIS to Experience Builder. if a user uploads a config.json initially and it matches of what is expected in web app builder than create their migration plan. Ask any follow up questions if needed.
@@ -213,7 +214,6 @@ class Chat:
             Chat.update_chat("user", input)
 
         try: 
-      
             client = OpenAI(
             api_key=app.config["OPENAI_KEY"]
             )
