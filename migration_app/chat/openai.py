@@ -149,8 +149,8 @@ class Chat:
         #session["chat_history"].append({ role: message })
 
     @staticmethod
-    def upload(file):
-        data = json.load(file)
+    def upload(data):
+        
         app_package = {}
         try :
             for key, value in data.items():
@@ -174,17 +174,23 @@ class Chat:
         
         initial_prompt = """"""
         input = ""
-      
         input = request.form.get('user_input')
         file = request.files.get('file')
-        uploaded_file_dict = Chat.upload(file)
+
+        data = json.load(file)
+        file.seek(0)  # 🔁 Reset file pointer to beginning
+
+        if data:
+           uploaded_file_dict = Chat.upload(file)
+
        
         if len(Chat.chat) == 0:
         #if "chat_history" not in session:
             #session["chat_history"] = []
             initial_prompt = """You are a GIS migration assistant named GeoShift AI, you can respond with your name every now and again. 
             Users are inquiring about what it would take to convert from there current
-            Web App Builder in ArcGIS to Experience Builder. We are interested specifically in custom widgets
+            Web App Builder in ArcGIS to Experience Builder. if a user uploads a config.json initially and it matches of what is expected in web app builder than create their migration plan. Ask any follow up questions if needed.
+            Only give a migration strategy once you have all key info. We are interested specifically in custom widgets
             because they will have to be rewritten in React with Experience Builder.
             Start by asking smart follow-up questions to gather:
             1. What widgets they use and if they are custom
@@ -192,16 +198,13 @@ class Chat:
             3. Do the widgets have an adjacent widget they can use in experience builder for the web app builder widget.
             It is recommended that they upload a config.json so that we can read it and compare with ESRI's latest docs to create an accurate
             migration plan.
-            if a user uploads a config.json and it matches of what is expected in web app builder than create their migration plan. Ask any follow up questions if needed.
-            Only give a migration strategy once you have all key info.
+
             """
         if len(uploaded_file_dict) > 0:
-            initial_prompt += f"""heres there uploaded config.json file from the user, please just create their migration plan.
+            initial_prompt += f"""heres there uploaded config.json file from the user, please just create their migration plan and only ask follow up questions if you think it is relevant.
             {str(uploaded_file_dict)}
             please compare this with {Chat.wab_exb_widget_map} and see how their widgets compare
             to experience builder. If they aren't there then they are custom and we need to recommend a rewrite."""
-
-            print(initial_prompt)
             Chat.update_chat("system", initial_prompt)
             
         if len(input) > 0:

@@ -13,12 +13,8 @@ def create_app():
     migration_app.register_blueprint(home_bp)
     migration_app.register_blueprint(chat_bp)
     app.register_blueprint(migration_app)
-    #app.config.from_pyfile('config.cfg')
     app.config['OPENAI_KEY'] = os.environ.get('OPEN_AI_KEY')
     app.secret_key = 'top-secret'
-
-    #if "chat_history" not in session:
-       # session["chat_history"] = []
     
    
     @app.route('/')
