@@ -17,7 +17,7 @@ class Chat:
     "Business Analyst": "Business Analyst",
     "Chart": "Chart",
     "Controller": "Widget Controller",
-    "Coordinates": "Coordinates",
+    "Coordinate": "Coordinates",
     "Coordinate Conversion": "Coordinate Conversion",
     "Directions": "Directions",
     "Draw": "Draw",
