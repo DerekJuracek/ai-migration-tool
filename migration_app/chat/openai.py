@@ -96,7 +96,7 @@ class Chat:
         #print(data)
         mapId = data.get("itemId")
         if mapId == None or mapId == '':
-            print('no map id')
+            mapId = 'none'
         else:
             mapId = data.get("itemId")
         return mapId
@@ -124,8 +124,6 @@ class Chat:
     
     @staticmethod
     def check_widgets_on_screen(data):
-        # just need names of widgets for now
-        # [{widget: "Scale"}]
         widgetList = []
         widgets = data.get("widgets")
         for widget in widgets:
@@ -142,11 +140,7 @@ class Chat:
     @staticmethod
     def update_chat(role, message):
         chat = Chat.chat
-        #chat = session.get("chat_history", [])
         chat.append({ "role": role, "content": message })
-        #session["chat_history"] = chat  # This reassigns the session, which Flask needs
-        #print(session["chat_history"])
-        #session["chat_history"].append({ role: message })
 
     @staticmethod
     def upload(data):
@@ -203,20 +197,21 @@ class Chat:
             migration plan.
 
             """
-        #print(uploaded_file_dict)
-        print(uploaded_file_dict)
+
         if uploaded_file_dict:
             initial_prompt += f"""heres there uploaded config.json file from the user, please just create their migration plan and only ask follow up questions if you think it is relevant.
             {str(uploaded_file_dict)}
             please compare this with {Chat.wab_exb_widget_map} and see how their widgets compare
-            to experience builder. If they aren't there then they are custom and we need to recommend a rewrite."""
+            to experience builder. If they aren't there then they are custom and we need to recommend a rewrite.
+            If map id is empty, don't worry about it for now, but let them know.
+            Also, you should be able to find any custom widgets from the config.json file. if 
+            you don't see any. just ask the follow up question, 'I didn't see any custom widgets,
+            is that correct?' """
             Chat.update_chat("system", initial_prompt)
             
         if len(input) > 0:
             Chat.update_chat("user", input)
 
-        
-        print(type(Chat.chat))
         try: 
       
             client = OpenAI(
