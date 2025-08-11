@@ -93,7 +93,7 @@ class Chat:
     @staticmethod
     def get_map(data):
         # get map id if there
-        print(data)
+        #print(data)
         mapId = data.get("itemId")
         if mapId == None or mapId == '':
             print('no map id')
@@ -150,6 +150,7 @@ class Chat:
 
     @staticmethod
     def upload(data):
+        #print(type(data))
         
         app_package = {}
         try :
@@ -162,12 +163,13 @@ class Chat:
                     app_package["theme"] = Chat.get_theme(data["theme"])
                 if "map" == key:
                     app_package["map"] = Chat.get_map(data["map"])
-            Chat.talk_to_chat(app_package)
+            #Chat.talk_to_chat(app_package)
             # need to return output from talk_to_chat
-            return {'message': app_package}
+            print(app_package)
+            return app_package
             
         except Exception:
-            return {'message': app_package}
+            return 'error'
 
     @staticmethod
     def talk_to_chat():
@@ -176,13 +178,14 @@ class Chat:
         input = ""
         input = request.form.get('user_input')
         file = request.files.get('file')
-
         data = json.load(file)
+        uploaded_file_dict = {}
+
         file.seek(0)  # 🔁 Reset file pointer to beginning
 
         if data:
-           uploaded_file_dict = Chat.upload(file)
-
+           uploaded_file_dict = Chat.upload(data)
+           
        
         if len(Chat.chat) == 0:
         #if "chat_history" not in session:
@@ -200,7 +203,9 @@ class Chat:
             migration plan.
 
             """
-        if len(uploaded_file_dict) > 0:
+        #print(uploaded_file_dict)
+        print(uploaded_file_dict)
+        if uploaded_file_dict:
             initial_prompt += f"""heres there uploaded config.json file from the user, please just create their migration plan and only ask follow up questions if you think it is relevant.
             {str(uploaded_file_dict)}
             please compare this with {Chat.wab_exb_widget_map} and see how their widgets compare
@@ -209,7 +214,9 @@ class Chat:
             
         if len(input) > 0:
             Chat.update_chat("user", input)
+
         
+        print(type(Chat.chat))
         try: 
       
             client = OpenAI(
@@ -227,9 +234,9 @@ class Chat:
             return jsonify({
                     "message": response
                 })
-        except Exception:
+        except Exception as e:
             return jsonify({
-                "message": "Something went wrong. Please try again later."
+                "message": e
             }), 500
         
 
